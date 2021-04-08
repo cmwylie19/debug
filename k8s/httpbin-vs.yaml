@@ -1,27 +1,13 @@
 apiVersion: gateway.solo.io/v1
 kind: VirtualService
 metadata:
-  name: httpbin
+  name: argo
   namespace: gloo-system
 spec:
   virtualHost:
     domains:
     - '*'
-    # options:
-    #   headerManipulation:
-    #     requestHeadersToRemove:
-    #     - "X-Envoy-Expected-Rq-Timeout-Ms"
-    #     - "X-Envoy-Internal"
     routes:
-    - matchers:
-      - prefix: /get
-      routeAction:
-        single:
-          kube:
-            ref:
-              name: httpbin
-              namespace: default
-            port: 8000
     - matchers:
       - prefix: /
       routeAction:
@@ -31,17 +17,4 @@ spec:
               name: argocd-server
               namespace: argocd
             port: 80
-      # - matchers:
-      #     - prefix: /
-      #   routeAction:
-      #     single:
-      #       kube:
-      #         ref:
-      #           name: admin-server
-      #           namespace: dev-portal
-      #         port: 8080
-    # options:
-    #   extauth:
-    #     configRef:
-    #       name: oidc-dex
-    #       namespace: gloo-system
+  
